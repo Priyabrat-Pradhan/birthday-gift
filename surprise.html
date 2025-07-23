@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise for GUGU 💕</title>
+  <link rel="stylesheet" href="index.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: cursive;
+      overflow-x: hidden;
+      background: linear-gradient(to bottom, #ffe6f0, #ffffff);
+    }
+
+    .surprise-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .side-photo img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 10px;
+      border: 4px solid pink;
+    }
+
+    .birthday-message {
+      max-width: 90%;
+      font-size: 1.2rem;
+      padding: 10px;
+    }
+
+    .highlight {
+      font-size: 1.5rem;
+      color: deeppink;
+      font-weight: bold;
+    }
+
+    .highlight-heart {
+      color: red;
+      font-weight: bold;
+    }
+
+    .signature {
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    .balloon-container,
+    .extra-balloons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .heart-balloon {
+      position: relative;
+      width: 100px;
+      height: 90px;
+      margin: 10px;
+    }
+
+    .heart-balloon img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 90px;
+      clip-path: path("M10,30 C10,10 50,0 50,30 C50,0 90,10 90,30 C90,60 50,80 50,90 C50,80 10,60 10,30 Z");
+      object-fit: cover;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    #fireworks {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: fixed;
+      top: 100%;
+      left: 50%;
+      transform: rotate(-45deg);
+      animation: floatUp 4s linear infinite;
+      z-index: 0;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: red;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .corner-rose {
+      width: 50px;
+      height: 50px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .side-photo img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .birthday-message {
+        font-size: 1rem;
+      }
+
+      .highlight {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body class="surprise-page">
+  <audio autoplay loop>
+    <source src="Untitled video - Made with Clipchamp (1).mp4" type="audio/mp3">
+  </audio>
+
+  <div class="surprise-section">
+    <div class="side-photo">
+      <img src="WhatsApp Image 2025-07-17 at 8.48.51 PM.jpeg" alt="Left Photo" />
+    </div>
+
+    <div class="birthday-message">
+      🎉 <span class="highlight">Happy Birthday My Love</span> 🎉<br><br>
+      Today we celebrate the most beautiful soul — <span class="highlight-heart">YOU</span>. 💖<br>
+      I love you endlessly.<br><br>
+      <span class="signature">— Yours forever, Sunil 💞</span>
+    </div>
+
+    <div class="side-photo">
+      <img src="WhatsApp Image 2025-07-17 at 8.51.37 PM.jpeg" alt="Right Photo" />
+    </div>
+  </div>
+
+  <div class="balloon-container">
+    <div class="heart-balloon">
+      <img src="WhatsApp Image 2025-07-11 at 9.23.47 AM.jpeg" alt="Rinky">
+    </div>
+  </div>
+
+  <div class="extra-balloons">
+    <div class="heart-balloon">
+      <img src="WhatsApp Image 2025-07-11 at 2.12.43 PM.jpeg" alt="Memory 1">
+    </div>
+    <div class="heart-balloon">
+      <img src="WhatsApp Image 2025-06-14 at 9.23.03 PM copy.jpeg" alt="Memory 2">
+    </div>
+    <div class="heart-balloon">
+      <img src="WhatsApp Image 2025-07-11 at 9.23.38 AM (1) copy.jpeg" alt="Memory 3">
+    </div>
+  </div>
+
+  <canvas id="fireworks"></canvas>
+
+  <script>
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let fireworks = [];
+
+    function drawFirework(x, y) {
+      for (let i = 0; i < 30; i++) {
+        const angle = (Math.PI * 2 * i) / 30;
+        const speed = Math.random() * 5 + 2;
+        const dx = Math.cos(angle) * speed;
+        const dy = Math.sin(angle) * speed;
+        fireworks.push({ x, y, dx, dy, life: 60 });
+      }
+    }
+
+    window.addEventListener('click', e => drawFirework(e.clientX, e.clientY));
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fireworks.forEach((p, i) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,105,180,' + (p.life / 60) + ')';
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        p.life--;
+        if (p.life <= 0) fireworks.splice(i, 1);
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+    setInterval(createHeart, 300);
+  </script>
+
+  <script>
+    const rosePositions = [
+      { style: "top: 05px; left: 05px;" },
+      { style: "top: 05px; right: 05px;" },
+      { style: "bottom: 05px; left: 05px;" },
+      { style: "bottom: 05px; right: 05px;" }
+    ];
+
+    rosePositions.forEach(pos => {
+      const rose = document.createElement("img");
+      rose.src = "rose.png";
+      rose.alt = "Rose";
+      rose.className = "corner-rose";
+      rose.style = `
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        z-index: 999;
+        pointer-events: none;
+        ${pos.style}
+      `;
+      document.body.appendChild(rose);
+    });
+  </script>
+</body>
+</html>
